@@ -113,3 +113,4 @@ examples/jobs.json
 - The bundled project works offline with the `demo` provider.
 - The `file` provider is the simplest path for custom job datasets.
 - Live LinkedIn scraping is not hardcoded in this project.
+- Claude Desktop-specific MCP setup is documented in `CLAUDE_SETUP.md`.

@@ -141,6 +141,12 @@ End-user import steps are documented in:
 UPLOAD_GUIDE.md
 ```
 
+Claude Desktop setup is documented in:
+
+```text
+CLAUDE_SETUP.md
+```
+
 ## Reliability measures
 
 - thread-safe in-memory TTL cache

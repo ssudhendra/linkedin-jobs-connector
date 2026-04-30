@@ -1,4 +1,8 @@
-# LinkedIn Jobs Connector
+# linkedin-jobs-connector
+
+This connector helps users connect their LinkedIn export data, pull the top 50-100 jobs from a provider, and surface recruiter or hiring-manager paths through 1st, 2nd, and 3rd degree connections.
+
+## Overview
 
 A portable Python project that can:
 

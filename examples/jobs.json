@@ -1,0 +1,41 @@
+[
+  {
+    "id": "job-001",
+    "title": "Senior Software Engineer",
+    "company": "Acme Cloud",
+    "location": "Chicago",
+    "url": "https://jobs.example.com/job-001",
+    "recruiter_name": "Maya Chen",
+    "recruiter_title": "Senior Technical Recruiter",
+    "hiring_manager_name": "Jordan Patel",
+    "hiring_manager_title": "Engineering Manager",
+    "posted_at": "2026-04-25",
+    "score": 98.2
+  },
+  {
+    "id": "job-002",
+    "title": "Product Manager",
+    "company": "Northstar Labs",
+    "location": "Austin",
+    "url": "https://jobs.example.com/job-002",
+    "recruiter_name": "Priya Raman",
+    "recruiter_title": "Principal Recruiter",
+    "hiring_manager_name": "Luis Gomez",
+    "hiring_manager_title": "Director of Engineering",
+    "posted_at": "2026-04-23",
+    "score": 95.5
+  },
+  {
+    "id": "job-003",
+    "title": "Data Scientist",
+    "company": "Helio Analytics",
+    "location": "Remote",
+    "url": "https://jobs.example.com/job-003",
+    "recruiter_name": "Nina Brooks",
+    "recruiter_title": "Talent Partner",
+    "hiring_manager_name": "",
+    "hiring_manager_title": "",
+    "posted_at": "2026-04-21",
+    "score": 93.1
+  }
+]

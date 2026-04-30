@@ -1,0 +1,54 @@
+[
+  {
+    "id": "demo-001",
+    "title": "Senior Software Engineer",
+    "company": "Acme Cloud",
+    "location": "Chicago",
+    "url": "https://jobs.example.com/demo-001",
+    "recruiter_name": "Maya Chen",
+    "recruiter_title": "Senior Technical Recruiter",
+    "hiring_manager_name": "Jordan Patel",
+    "hiring_manager_title": "Engineering Manager",
+    "posted_at": "2026-04-26",
+    "score": 98.9
+  },
+  {
+    "id": "demo-002",
+    "title": "Staff Backend Engineer",
+    "company": "Acme Cloud",
+    "location": "Chicago",
+    "url": "https://jobs.example.com/demo-002",
+    "recruiter_name": "Maya Chen",
+    "recruiter_title": "Senior Technical Recruiter",
+    "hiring_manager_name": "Jordan Patel",
+    "hiring_manager_title": "Engineering Manager",
+    "posted_at": "2026-04-24",
+    "score": 97.3
+  },
+  {
+    "id": "demo-003",
+    "title": "Product Manager",
+    "company": "Northstar Labs",
+    "location": "Austin",
+    "url": "https://jobs.example.com/demo-003",
+    "recruiter_name": "Priya Raman",
+    "recruiter_title": "Principal Recruiter",
+    "hiring_manager_name": "Luis Gomez",
+    "hiring_manager_title": "Director of Engineering",
+    "posted_at": "2026-04-22",
+    "score": 96.4
+  },
+  {
+    "id": "demo-004",
+    "title": "Data Scientist",
+    "company": "Helio Analytics",
+    "location": "Remote",
+    "url": "https://jobs.example.com/demo-004",
+    "recruiter_name": "Nina Brooks",
+    "recruiter_title": "Talent Partner",
+    "hiring_manager_name": "",
+    "hiring_manager_title": "",
+    "posted_at": "2026-04-20",
+    "score": 92.7
+  }
+]

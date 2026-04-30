@@ -1,0 +1,23 @@
+{
+  "name": "linkedin-jobs-connector",
+  "version": "0.1.0",
+  "transport": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+      "-m",
+      "linkedin_connector.mcp_server"
+    ],
+    "env": {
+      "PYTHONPATH": "src"
+    }
+  },
+  "entrypoints": {
+    "http_health": "http://127.0.0.1:8765/health",
+    "mcp_module": "linkedin_connector.mcp_server"
+  },
+  "notes": [
+    "Upload this folder or the generated zip into tooling that supports Python stdio MCP servers.",
+    "Provide a connections CSV export and optionally a jobs JSON/CSV file for file-based job lookup."
+  ]
+}

@@ -2,6 +2,16 @@
 
 This project is packaged so users can either download the repository and use it directly, or upload the prepared zip bundle into compatible AI tools.
 
+## One-click bundle download
+
+The repository README includes a prominent `Download Connector Bundle` button.
+
+It links directly to:
+
+```text
+https://github.com/ssudhendra/linkedin-jobs-connector/raw/main/dist/linkedin_connector_bundle.zip
+```
+
 ## Fastest option
 
 Download this file from the repository:

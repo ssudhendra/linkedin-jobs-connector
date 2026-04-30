@@ -2,6 +2,14 @@
 
 This connector helps users connect their LinkedIn export data, pull the top 50-100 jobs from a provider, and surface recruiter or hiring-manager paths through 1st, 2nd, and 3rd degree connections.
 
+[![Download Bundle](https://img.shields.io/badge/Download-Connector%20Bundle-0A66C2?style=for-the-badge)](https://github.com/ssudhendra/linkedin-jobs-connector/raw/main/dist/linkedin_connector_bundle.zip)
+
+Direct download:
+
+```text
+https://github.com/ssudhendra/linkedin-jobs-connector/raw/main/dist/linkedin_connector_bundle.zip
+```
+
 ## Overview
 
 A portable Python project that can:

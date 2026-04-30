@@ -1,4 +1,5 @@
 __pycache__/
 *.pyc
 dist/
+!dist/linkedin_connector_bundle.zip
 *.egg-info/

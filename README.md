@@ -127,6 +127,12 @@ This creates:
 dist/linkedin_connector_bundle.zip
 ```
 
+End-user import steps are documented in:
+
+```text
+UPLOAD_GUIDE.md
+```
+
 ## Reliability measures
 
 - thread-safe in-memory TTL cache

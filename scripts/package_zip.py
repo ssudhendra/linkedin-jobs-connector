@@ -9,7 +9,15 @@ DIST_DIR = ROOT / "dist"
 OUTPUT_FILE = DIST_DIR / "linkedin_connector_bundle.zip"
 
 INCLUDE_DIRS = ["src", "examples", "tests", "scripts"]
-INCLUDE_FILES = ["README.md", "pyproject.toml", ".gitignore", ".env.example", "connector.manifest.json"]
+INCLUDE_FILES = [
+    "README.md",
+    "pyproject.toml",
+    ".gitignore",
+    ".env.example",
+    "connector.manifest.json",
+    "UPLOAD_GUIDE.md",
+    "CLAUDE_SETUP.md",
+]
 
 
 def main() -> None:

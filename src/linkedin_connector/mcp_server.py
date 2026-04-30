@@ -5,10 +5,12 @@ import sys
 import traceback
 from typing import Any
 
+from linkedin_connector.auth import LinkedInAuthService
 from linkedin_connector.services import JobSearchService
 
 
 SERVICE = JobSearchService()
+AUTH_SERVICE = LinkedInAuthService()
 
 
 TOOLS = [
@@ -19,7 +21,7 @@ TOOLS = [
     },
     {
         "name": "search_jobs",
-        "description": "Search jobs and enrich them with recruiter and connection matches.",
+        "description": "Search jobs and enrich them with recruiter and connection matches from supported providers.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -45,6 +47,32 @@ TOOLS = [
             },
             "required": ["company", "connections_csv_path"],
         },
+    },
+    {
+        "name": "linkedin_auth_status",
+        "description": "Checks whether LinkedIn OAuth is configured and whether the user is authenticated.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "linkedin_begin_login",
+        "description": "Starts the official LinkedIn OAuth login flow and returns the URL the user should open in a browser.",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "linkedin_complete_login",
+        "description": "Completes LinkedIn OAuth after the user pastes back the full redirected callback URL.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "redirected_url": {"type": "string"},
+            },
+            "required": ["redirected_url"],
+        },
+    },
+    {
+        "name": "linkedin_logout",
+        "description": "Clears locally stored LinkedIn OAuth credentials for this connector.",
+        "inputSchema": {"type": "object", "properties": {}},
     },
 ]
 
@@ -75,6 +103,18 @@ def handle_call(tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
             hiring_manager_name=str(arguments.get("hiring_manager_name", "")),
             connections_csv_path=str(arguments.get("connections_csv_path", "")),
         )
+
+    if tool_name == "linkedin_auth_status":
+        return AUTH_SERVICE.get_status()
+
+    if tool_name == "linkedin_begin_login":
+        return AUTH_SERVICE.begin_login()
+
+    if tool_name == "linkedin_complete_login":
+        return AUTH_SERVICE.complete_login(str(arguments.get("redirected_url", "")))
+
+    if tool_name == "linkedin_logout":
+        return AUTH_SERVICE.logout()
 
     raise ValueError(f"unknown tool: {tool_name}")
 

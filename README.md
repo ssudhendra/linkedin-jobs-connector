@@ -14,6 +14,7 @@ https://github.com/ssudhendra/linkedin-jobs-connector/raw/main/dist/linkedin_con
 
 A portable Python project that can:
 
+- authenticate a user with official LinkedIn OAuth
 - ingest a user's LinkedIn connections export
 - search the top 50-100 jobs from a provider
 - surface recruiter and hiring-manager matches from 1st, 2nd, and 3rd degree connections
@@ -24,6 +25,7 @@ A portable Python project that can:
 
 This project is designed to be reliable out of the box, even without external APIs:
 
+- official LinkedIn OAuth tools for member sign-in
 - `demo` provider: works offline with bundled sample jobs
 - `file` provider: reads jobs from a local JSON or CSV file
 - connection matching: reads a LinkedIn connections CSV export and ranks likely recruiter or hiring-manager paths
@@ -32,12 +34,21 @@ This project is designed to be reliable out of the box, even without external AP
 
 ## Important constraint
 
-LinkedIn does not provide a general public API for unrestricted job scraping and connection graph access. To keep this codebase portable and stable, the default implementation uses:
+LinkedIn does not provide a general public API for unrestricted job scraping and connection graph access. Official LinkedIn OAuth can authenticate the member, but open permissions do not grant broad access to:
 
+- 2nd-degree or 3rd-degree connections
+- unrestricted connection graph browsing
+- broad jobs data access for all applications
+
+To keep this codebase portable and stable, the implementation uses:
+
+- official LinkedIn sign-in for identity/authentication
 - a local CSV export for user connections
 - a pluggable provider interface for job data
 
 If you want live jobs, wire `JobProvider` to an approved provider or your internal data source.
+
+If you want official LinkedIn member APIs beyond basic sign-in, you must separately obtain LinkedIn product access and approvals for the relevant APIs.
 
 ## Project layout
 
@@ -122,6 +133,10 @@ Supported tools:
 - `health_check`
 - `search_jobs`
 - `match_connections`
+- `linkedin_auth_status`
+- `linkedin_begin_login`
+- `linkedin_complete_login`
+- `linkedin_logout`
 
 ## Package as zip
 

@@ -1,6 +1,6 @@
 # Claude Setup
 
-This guide explains how to use `linkedin-jobs-connector` with Claude Desktop on macOS through a local MCP server.
+This guide explains how to use `linkedin-jobs-connector` with Claude Desktop on macOS through a local MCP server, including official LinkedIn OAuth sign-in.
 
 ## What this setup supports
 
@@ -8,12 +8,14 @@ This repository currently supports:
 
 - Claude Desktop
 - local MCP server setup
+- official LinkedIn OAuth sign-in
 - local files for LinkedIn connections and optional jobs datasets
 
 This repository does not currently provide:
 
 - a Claude `.dxt` extension package
 - a hosted remote MCP deployment for `claude.ai`
+- unrestricted LinkedIn jobs or 2nd/3rd degree connection APIs
 
 ## Prerequisites
 
@@ -116,7 +118,12 @@ If the config file is empty, use this:
         "-lc",
         "cd '/Users/sudhendrasoanpet/Downloads/linkedin-jobs-connector' && PYTHONPATH=src python3 -m linkedin_connector.mcp_server"
       ],
-      "env": {}
+      "env": {
+        "LINKEDIN_CLIENT_ID": "YOUR_LINKEDIN_CLIENT_ID",
+        "LINKEDIN_CLIENT_SECRET": "YOUR_LINKEDIN_CLIENT_SECRET",
+        "LINKEDIN_REDIRECT_URI": "http://127.0.0.1:8787/callback",
+        "LINKEDIN_SCOPES": "openid profile email"
+      }
     }
   }
 }
@@ -131,7 +138,12 @@ If you already have other MCP servers configured, add only this object under `mc
     "-lc",
     "cd '/Users/sudhendrasoanpet/Downloads/linkedin-jobs-connector' && PYTHONPATH=src python3 -m linkedin_connector.mcp_server"
   ],
-  "env": {}
+  "env": {
+    "LINKEDIN_CLIENT_ID": "YOUR_LINKEDIN_CLIENT_ID",
+    "LINKEDIN_CLIENT_SECRET": "YOUR_LINKEDIN_CLIENT_SECRET",
+    "LINKEDIN_REDIRECT_URI": "http://127.0.0.1:8787/callback",
+    "LINKEDIN_SCOPES": "openid profile email"
+  }
 }
 ```
 
@@ -154,6 +166,10 @@ This connector exposes these MCP tools:
 - `health_check`
 - `search_jobs`
 - `match_connections`
+- `linkedin_auth_status`
+- `linkedin_begin_login`
+- `linkedin_complete_login`
+- `linkedin_logout`
 
 If Claude recognizes the server, it can call these tools from chat.
 
@@ -175,13 +191,40 @@ Use absolute file paths when asking Claude to call the tools.
 
 ## Copy-paste prompts for Claude
 
-### Prompt 1. Confirm the connector is working
+### Prompt 0. Check LinkedIn OAuth configuration
+
+```text
+Use the linkedin-jobs-connector MCP tool linkedin_auth_status and tell me:
+1. whether LinkedIn OAuth is configured
+2. whether I am already authenticated
+3. what limitations still apply to the available LinkedIn data
+```
+
+### Prompt 1. Start LinkedIn login
+
+```text
+Use the linkedin-jobs-connector MCP tool linkedin_begin_login and show me the auth URL.
+I will open it in my browser, sign in with LinkedIn, and then paste back the full redirected callback URL.
+```
+
+### Prompt 2. Complete LinkedIn login
+
+After you finish LinkedIn sign-in in the browser and land on the redirect URL, copy the full URL from the browser address bar and paste it into Claude using this prompt:
+
+```text
+Use the linkedin-jobs-connector MCP tool linkedin_complete_login with:
+redirected_url=PASTE_THE_FULL_REDIRECTED_URL_HERE
+
+Then confirm whether authentication succeeded and summarize the profile data returned.
+```
+
+### Prompt 3. Confirm the connector is working
 
 ```text
 Use the linkedin-jobs-connector MCP tool health_check and tell me the result.
 ```
 
-### Prompt 2. Demo search with bundled sample data
+### Prompt 4. Demo search with bundled sample data
 
 ```text
 Use the linkedin-jobs-connector MCP tool search_jobs with:
@@ -198,7 +241,7 @@ Then summarize:
 4. any 1st, 2nd, or 3rd degree connections for each job
 ```
 
-### Prompt 3. Use my own jobs file
+### Prompt 5. Use my own jobs file
 
 ```text
 Use the linkedin-jobs-connector MCP tool search_jobs with:
@@ -212,7 +255,7 @@ jobs_file_path=/ABSOLUTE/PATH/TO/jobs.json
 Then rank the jobs by best warm-introduction potential based on recruiter and hiring-manager connection strength.
 ```
 
-### Prompt 4. Match connections for a specific company
+### Prompt 6. Match connections for a specific company
 
 ```text
 Use the linkedin-jobs-connector MCP tool match_connections with:
@@ -223,6 +266,31 @@ connections_csv_path=/Users/sudhendrasoanpet/Downloads/linkedin-jobs-connector/e
 
 Then explain which connections are strongest and why.
 ```
+
+## What you must do from your end
+
+To test official LinkedIn login in Claude Desktop, you need to create and configure a LinkedIn app yourself.
+
+You need:
+
+1. A LinkedIn developer application
+2. `Sign In with LinkedIn using OpenID Connect` enabled for that app
+3. A redirect URL added to that app that exactly matches your local config
+4. Your own `LINKEDIN_CLIENT_ID`
+5. Your own `LINKEDIN_CLIENT_SECRET`
+
+Populate those values in your local environment before starting Claude's MCP server.
+
+Example:
+
+```bash
+export LINKEDIN_CLIENT_ID="YOUR_CLIENT_ID"
+export LINKEDIN_CLIENT_SECRET="YOUR_CLIENT_SECRET"
+export LINKEDIN_REDIRECT_URI="http://127.0.0.1:8787/callback"
+export LINKEDIN_SCOPES="openid profile email"
+```
+
+Then start Claude Desktop with the MCP config pointing to that environment.
 
 ## Troubleshooting
 
@@ -253,6 +321,10 @@ Use absolute paths, not relative paths.
 ### I want to use claude.ai in the browser
 
 That requires a hosted remote MCP deployment. This repository currently documents local Claude Desktop setup, not a public remote deployment.
+
+### LinkedIn login works, but I still do not get live jobs or broad connections
+
+That is expected with open LinkedIn permissions. Authentication and data access are different. LinkedIn sign-in proves the member identity, but the APIs for broader connections and restricted profile/job graph data require separate access approvals from LinkedIn.
 
 ## Related files
 

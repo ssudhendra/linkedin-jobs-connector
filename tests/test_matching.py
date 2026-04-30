@@ -8,6 +8,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from linkedin_connector.auth import LinkedInAuthService
 from linkedin_connector.services import JobSearchService
 
 
@@ -51,6 +52,12 @@ class MatchingTests(unittest.TestCase):
         )
         self.assertGreaterEqual(len(result["recruiter_matches"]), 1)
         self.assertGreaterEqual(len(result["hiring_manager_matches"]), 1)
+
+    def test_auth_status_shape(self) -> None:
+        status = LinkedInAuthService().get_status()
+        self.assertIn("configured", status)
+        self.assertIn("authenticated", status)
+        self.assertIn("limitations", status)
 
 
 if __name__ == "__main__":
